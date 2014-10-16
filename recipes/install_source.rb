@@ -19,9 +19,9 @@ when 'rhel'
 end
 
 # TODO: move source directory to an attribute
-git node['diamond']['source_path'] do
-  repository node['diamond']['source_repository']
-  reference node['diamond']['source_reference']
+git node['diamond']['source']['path'] do
+  repository node['diamond']['source']['repository']
+  reference node['diamond']['source']['reference']
   action :sync
   notifies :run, 'execute[build diamond]', :immediately
 end
@@ -29,13 +29,13 @@ end
 case node['platform_family']
 when 'debian'
   execute 'build diamond' do
-    command "cd #{node['diamond']['source_path']};make builddeb"
+    command "cd #{node['diamond']['source']['path']};make builddeb"
     action :nothing
     notifies :run, 'execute[install diamond]', :immediately
   end
 
   execute 'install diamond' do
-    command "cd #{node['diamond']['source_path']};dpkg -i build/diamond_*_all.deb"
+    command "cd #{node['diamond']['source']['path']};dpkg -i build/diamond_*_all.deb"
     action :nothing
     notifies :restart, 'service[diamond]'
   end
@@ -43,13 +43,13 @@ when 'debian'
 else
   # TODO: test this
   execute 'build diamond' do
-    command "cd #{node['diamond']['source_path']};make buildrpm"
+    command "cd #{node['diamond']['source']['path']};make buildrpm"
     action :nothing
     notifies :run, 'execute[install diamond]', :immediately
   end
 
   execute 'install diamond' do
-    command "cd #{node['diamond']['source_path']};rpm -ivh dist/*.noarch.rpm"
+    command "cd #{node['diamond']['source']['path']};rpm -ivh dist/*.noarch.rpm"
     action :nothing
     notifies :restart, 'service[diamond]'
   end
