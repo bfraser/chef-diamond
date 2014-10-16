@@ -1,10 +1,14 @@
 default['diamond']['install_method'] = 'source'
-default['diamond']['handlers']       = 'diamond.handler.graphite.GraphiteHandler, diamond.handler.archive.ArchiveHandler'
 
 # Attributes for source installation
 default['diamond']['source']['path']       = '/usr/local/share/diamond_src'
 default['diamond']['source']['repository'] = 'git://github.com/BrightcoveOS/Diamond.git'
 default['diamond']['source']['reference']  = 'master'
+
+# Diamond server attributes
+default['diamond']['server']['user']     = nil
+default['diamond']['server']['group']    = nil
+default['diamond']['server']['handlers'] = 'diamond.handler.graphite.GraphiteHandler, diamond.handler.archive.ArchiveHandler'
 
 # Chef role for Graphite
 default['diamond']['graphite']['role'] = nil

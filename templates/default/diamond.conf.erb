@@ -7,15 +7,15 @@
 [server]
 
 # Handlers for published metrics.
-handlers = <%= node['diamond']['handlers'] %>
+handlers = <%= node['diamond']['server']['handlers'] %>
 
 # User diamond will run as
 # Leave empty to use the current user
-user =
+user = <%= node['diamond']['server']['user'] %>
 
 # Group diamond will run as
 # Leave empty to use the current group
-group =
+group = <%= node['diamond']['server']['group'] %>
 
 # Pid file
 pid_file = /var/run/diamond.pid
